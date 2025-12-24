@@ -2,9 +2,105 @@
 
 This directory contains example form definitions demonstrating various features of the Generic Form Format.
 
-## Available Examples
+## Directory Structure
 
-### 1. [simple-contact-form.json](simple-contact-form.json)
+```
+examples/
+├── json/          # Static JSON form definitions
+│   └── *.json     # Ready-to-use form examples
+├── typescript/    # Programmatic form creation
+│   └── *.ts       # TypeScript code examples
+└── README.md      # This file
+```
+
+## Quick Navigation
+
+- **[JSON Examples](json/)** - Static form definitions in pure JSON
+- **[TypeScript Examples](typescript/)** - Programmatic form creation with the library
+
+---
+
+## JSON Examples
+
+Static form definitions that demonstrate the GFF specification.
+
+**Location:** [`examples/json/`](json/)
+
+### Available Files
+
+1. **[simple-contact-form.json](json/simple-contact-form.json)** - Basic contact form
+2. **[job-application-form.json](json/job-application-form.json)** - Complex form with nested forms and dependencies
+3. **[dynamic-survey-form.json](json/dynamic-survey-form.json)** - Survey with dynamic options and complex logic
+4. **[rtl-multilingual-form.json](json/rtl-multilingual-form.json)** - Multilingual form with RTL support
+5. **[personal-info-form.json](json/personal-info-form.json)** - Reusable personal information subform
+6. **[reference-form.json](json/reference-form.json)** - Professional reference subform
+7. **[advanced-features.json](json/advanced-features.json)** - Complete example with advanced field types and configurations
+
+### Usage
+
+```bash
+# Validate all JSON examples
+npm run validate:examples
+```
+
+---
+
+## TypeScript Examples
+
+Programmatic form creation using the TypeScript library.
+
+**Location:** [`examples/typescript/`](typescript/)
+
+### Available Files
+
+1. **[contact-form.ts](typescript/contact-form.ts)** - Basic contact form with validation and layout
+2. **[job-application.ts](typescript/job-application.ts)** - Job application with conditional fields
+3. **[merge-forms.ts](typescript/merge-forms.ts)** - Demonstrates form merging functionality
+4. **[new-field-types.ts](typescript/new-field-types.ts)** - Feedback form showcasing newer field types (rating, toggle, tags, tel, time, datetime)
+5. **[advanced-features.ts](typescript/advanced-features.ts)** - Complete showcase of advanced features (autocomplete, slider, signature, richtext, code, currency, image, OTP, multi-step, i18n, theme, field groups)
+6. **[error-handling.ts](typescript/error-handling.ts)** - Custom error handling and logging
+7. **[dynamic-conditional-form.ts](typescript/dynamic-conditional-form.ts)** - Event registration form with complex conditional logic
+8. **[all-field-types.ts](typescript/all-field-types.ts)** - Complete reference of all 29 field types
+
+### Running Examples
+
+```bash
+# Run individual examples
+npm run example:contact          # Contact form
+npm run example:job              # Job application
+npm run example:merge            # Form merging
+npm run example:fields           # New field types
+npm run example:advanced         # Advanced features
+npm run example:error            # Error handling
+npm run example:dynamic          # Dynamic conditional form
+npm run example:all              # All 29 field types
+```
+
+**Location:** [`examples/typescript/`](typescript/)
+
+### Available Files
+
+- **[contact-form.ts](typescript/contact-form.ts)** - Simple contact form creation
+- **[job-application.ts](typescript/job-application.ts)** - Job application with conditional logic
+- **[merge-forms.ts](typescript/merge-forms.ts)** - Merging multiple form definitions
+
+### Running Examples
+
+```bash
+# Run individual examples
+npm run example:contact
+npm run example:job
+npm run example:merge
+
+# Or run directly
+npx ts-node examples/typescript/contact-form.ts
+```
+
+---
+
+## Example Details
+
+### simple-contact-form.json
 
 A basic contact form demonstrating:
 - Text, email, select, and checkbox fields
@@ -16,7 +112,7 @@ A basic contact form demonstrating:
 
 ---
 
-### 2. [job-application-form.json](job-application-form.json)
+### job-application-form.json
 
 A comprehensive job application form demonstrating:
 - **Nested forms** (personal info, references)
@@ -29,12 +125,12 @@ A comprehensive job application form demonstrating:
 **Use case**: Job applications, complex multi-step forms with nested data
 
 **Related forms**:
-- [personal-info-form.json](personal-info-form.json) - Personal information subform
-- [reference-form.json](reference-form.json) - Professional reference subform
+- [personal-info-form.json](json/personal-info-form.json) - Personal information subform
+- [reference-form.json](json/reference-form.json) - Professional reference subform
 
 ---
 
-### 3. [dynamic-survey-form.json](dynamic-survey-form.json)
+### dynamic-survey-form.json
 
 A customer satisfaction survey demonstrating:
 - **Dynamic options** using `optionsFunction`
