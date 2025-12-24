@@ -1,0 +1,261 @@
+{
+  "version": "1.0",
+  "formId": "dynamic-survey-form",
+  "title": "Customer Satisfaction Survey",
+  "description": "Help us improve by sharing your feedback",
+  "fields": [
+    {
+      "id": "customerType",
+      "type": "radio",
+      "caption": "I am a...",
+      "params": {
+        "required": true,
+        "options": ["First-time customer", "Returning customer", "Business partner"]
+      }
+    },
+    {
+      "id": "purchaseDate",
+      "type": "date",
+      "caption": "When did you make your purchase?",
+      "params": {
+        "required": false,
+        "maxDate": "2025-12-24"
+      }
+    },
+    {
+      "id": "productCategory",
+      "type": "select",
+      "caption": "Product Category",
+      "params": {
+        "required": true,
+        "optionsFunction": "getProductCategories",
+        "searchable": true
+      }
+    },
+    {
+      "id": "satisfaction",
+      "type": "range",
+      "caption": "Overall Satisfaction",
+      "tooltip": "Rate from 0 (very dissatisfied) to 10 (very satisfied)",
+      "params": {
+        "required": true,
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "defaultValue": 5
+      }
+    },
+    {
+      "id": "wouldRecommend",
+      "type": "checkbox",
+      "caption": "I would recommend this to others",
+      "params": {
+        "required": false
+      }
+    },
+    {
+      "id": "recommendationReason",
+      "type": "text",
+      "caption": "Why would you recommend us?",
+      "params": {
+        "minLength": 10,
+        "maxLength": 500,
+        "multiline": true
+      }
+    },
+    {
+      "id": "issuesEncountered",
+      "type": "checkbox",
+      "caption": "I encountered issues",
+      "params": {
+        "required": false
+      }
+    },
+    {
+      "id": "issueTypes",
+      "type": "select",
+      "caption": "What issues did you encounter?",
+      "params": {
+        "required": false,
+        "multiple": true,
+        "options": [
+          { "value": "shipping", "label": "Shipping Delays" },
+          { "value": "quality", "label": "Product Quality" },
+          { "value": "support", "label": "Customer Support" },
+          { "value": "website", "label": "Website Issues" },
+          { "value": "payment", "label": "Payment Problems" },
+          { "value": "other", "label": "Other" }
+        ]
+      }
+    },
+    {
+      "id": "issueDescription",
+      "type": "text",
+      "caption": "Please describe the issues",
+      "params": {
+        "minLength": 20,
+        "maxLength": 1000,
+        "multiline": true
+      }
+    },
+    {
+      "id": "contactForFollowup",
+      "type": "checkbox",
+      "caption": "I would like to be contacted about my feedback",
+      "params": {
+        "required": false
+      }
+    },
+    {
+      "id": "contactEmail",
+      "type": "email",
+      "caption": "Contact Email",
+      "params": {
+        "required": false
+      }
+    },
+    {
+      "id": "additionalComments",
+      "type": "text",
+      "caption": "Additional Comments",
+      "params": {
+        "minLength": 0,
+        "maxLength": 2000,
+        "multiline": true,
+        "placeholder": "Any other feedback you'd like to share..."
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "show-recommendation-reason",
+      "sourceFieldId": "wouldRecommend",
+      "condition": {
+        "operator": "equals",
+        "value": true
+      },
+      "effects": [
+        {
+          "targetFieldId": "recommendationReason",
+          "action": "show"
+        },
+        {
+          "targetFieldId": "recommendationReason",
+          "action": "require"
+        }
+      ]
+    },
+    {
+      "id": "hide-recommendation-reason",
+      "sourceFieldId": "wouldRecommend",
+      "condition": {
+        "operator": "equals",
+        "value": false
+      },
+      "effects": [
+        {
+          "targetFieldId": "recommendationReason",
+          "action": "hide"
+        }
+      ]
+    },
+    {
+      "id": "show-issue-fields",
+      "sourceFieldId": "issuesEncountered",
+      "condition": {
+        "operator": "equals",
+        "value": true
+      },
+      "effects": [
+        {
+          "targetFieldId": "issueTypes",
+          "action": "show"
+        },
+        {
+          "targetFieldId": "issueTypes",
+          "action": "require"
+        },
+        {
+          "targetFieldId": "issueDescription",
+          "action": "show"
+        },
+        {
+          "targetFieldId": "issueDescription",
+          "action": "require"
+        }
+      ]
+    },
+    {
+      "id": "hide-issue-fields",
+      "sourceFieldId": "issuesEncountered",
+      "condition": {
+        "operator": "equals",
+        "value": false
+      },
+      "effects": [
+        {
+          "targetFieldId": "issueTypes",
+          "action": "hide"
+        },
+        {
+          "targetFieldId": "issueDescription",
+          "action": "hide"
+        }
+      ]
+    },
+    {
+      "id": "show-contact-email",
+      "sourceFieldId": "contactForFollowup",
+      "condition": {
+        "operator": "equals",
+        "value": true
+      },
+      "effects": [
+        {
+          "targetFieldId": "contactEmail",
+          "action": "show"
+        },
+        {
+          "targetFieldId": "contactEmail",
+          "action": "require"
+        }
+      ]
+    },
+    {
+      "id": "hide-contact-email",
+      "sourceFieldId": "contactForFollowup",
+      "condition": {
+        "operator": "equals",
+        "value": false
+      },
+      "effects": [
+        {
+          "targetFieldId": "contactEmail",
+          "action": "hide"
+        }
+      ]
+    },
+    {
+      "id": "adjust-satisfaction-params-low",
+      "sourceFieldId": "satisfaction",
+      "condition": {
+        "operator": "lessThan",
+        "value": 5
+      },
+      "effects": [
+        {
+          "targetFieldId": "issuesEncountered",
+          "action": "setValue",
+          "value": true
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "getProductCategories": {
+      "type": "datasource",
+      "description": "Fetches available product categories from the API",
+      "returns": "array"
+    }
+  }
+}

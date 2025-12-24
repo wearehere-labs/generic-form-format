@@ -1,0 +1,233 @@
+{
+  "version": "1.0",
+  "formId": "rtl-multilingual-form",
+  "title": "Multilingual Registration Form",
+  "description": "Example form with RTL support for Arabic/Hebrew text",
+  "fields": [
+    {
+      "id": "language",
+      "type": "select",
+      "caption": "Preferred Language",
+      "params": {
+        "required": true,
+        "options": [
+          { "value": "en", "label": "English" },
+          { "value": "ar", "label": "العربية (Arabic)" },
+          { "value": "he", "label": "עברית (Hebrew)" },
+          { "value": "es", "label": "Español (Spanish)" }
+        ]
+      }
+    },
+    {
+      "id": "nameEnglish",
+      "type": "text",
+      "caption": "Full Name (English)",
+      "params": {
+        "minLength": 1,
+        "maxLength": 100,
+        "rtl": false
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "nameNative",
+      "type": "text",
+      "caption": "Full Name (Native Language)",
+      "tooltip": "Enter your name in your preferred language",
+      "params": {
+        "minLength": 0,
+        "maxLength": 100,
+        "rtl": false
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "address",
+      "type": "text",
+      "caption": "Address",
+      "params": {
+        "minLength": 1,
+        "maxLength": 200,
+        "multiline": true,
+        "rtl": false
+      }
+    },
+    {
+      "id": "city",
+      "type": "text",
+      "caption": "City",
+      "params": {
+        "minLength": 1,
+        "maxLength": 100,
+        "rtl": false
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "country",
+      "type": "select",
+      "caption": "Country",
+      "params": {
+        "required": true,
+        "optionsFunction": "getCountries",
+        "searchable": true
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "biography",
+      "type": "text",
+      "caption": "Short Biography",
+      "tooltip": "Tell us about yourself",
+      "params": {
+        "minLength": 0,
+        "maxLength": 1000,
+        "multiline": true,
+        "rtl": false
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "enable-rtl-arabic",
+      "sourceFieldId": "language",
+      "condition": {
+        "operator": "equals",
+        "value": "ar"
+      },
+      "effects": [
+        {
+          "targetFieldId": "nameNative",
+          "action": "updateParams",
+          "params": {
+            "rtl": true
+          }
+        },
+        {
+          "targetFieldId": "address",
+          "action": "updateParams",
+          "params": {
+            "rtl": true
+          }
+        },
+        {
+          "targetFieldId": "city",
+          "action": "updateParams",
+          "params": {
+            "rtl": true
+          }
+        },
+        {
+          "targetFieldId": "biography",
+          "action": "updateParams",
+          "params": {
+            "rtl": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "enable-rtl-hebrew",
+      "sourceFieldId": "language",
+      "condition": {
+        "operator": "equals",
+        "value": "he"
+      },
+      "effects": [
+        {
+          "targetFieldId": "nameNative",
+          "action": "updateParams",
+          "params": {
+            "rtl": true
+          }
+        },
+        {
+          "targetFieldId": "address",
+          "action": "updateParams",
+          "params": {
+            "rtl": true
+          }
+        },
+        {
+          "targetFieldId": "city",
+          "action": "updateParams",
+          "params": {
+            "rtl": true
+          }
+        },
+        {
+          "targetFieldId": "biography",
+          "action": "updateParams",
+          "params": {
+            "rtl": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "disable-rtl-other",
+      "sourceFieldId": "language",
+      "condition": {
+        "operator": "in",
+        "value": ["en", "es"]
+      },
+      "effects": [
+        {
+          "targetFieldId": "nameNative",
+          "action": "updateParams",
+          "params": {
+            "rtl": false
+          }
+        },
+        {
+          "targetFieldId": "address",
+          "action": "updateParams",
+          "params": {
+            "rtl": false
+          }
+        },
+        {
+          "targetFieldId": "city",
+          "action": "updateParams",
+          "params": {
+            "rtl": false
+          }
+        },
+        {
+          "targetFieldId": "biography",
+          "action": "updateParams",
+          "params": {
+            "rtl": false
+          }
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "getCountries": {
+      "type": "datasource",
+      "description": "Returns list of countries based on selected language",
+      "returns": "array"
+    }
+  }
+}

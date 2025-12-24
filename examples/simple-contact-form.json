@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "formId": "simple-contact-form",
+  "title": "Contact Us",
+  "description": "Send us a message and we'll get back to you soon.",
+  "fields": [
+    {
+      "id": "name",
+      "type": "text",
+      "caption": "Full Name",
+      "tooltip": "Enter your first and last name",
+      "params": {
+        "minLength": 1,
+        "maxLength": 100,
+        "placeholder": "John Doe"
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "email",
+      "type": "email",
+      "caption": "Email Address",
+      "tooltip": "We'll never share your email",
+      "params": {
+        "required": true,
+        "placeholder": "john@example.com"
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "subject",
+      "type": "select",
+      "caption": "Subject",
+      "params": {
+        "required": true,
+        "options": [
+          { "value": "general", "label": "General Inquiry" },
+          { "value": "support", "label": "Technical Support" },
+          { "value": "sales", "label": "Sales Question" },
+          { "value": "feedback", "label": "Feedback" }
+        ],
+        "placeholder": "Select a subject"
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "full"
+        }
+      }
+    },
+    {
+      "id": "message",
+      "type": "text",
+      "caption": "Message",
+      "params": {
+        "minLength": 10,
+        "maxLength": 1000,
+        "multiline": true,
+        "placeholder": "Tell us what's on your mind..."
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "full"
+        }
+      }
+    },
+    {
+      "id": "subscribe",
+      "type": "checkbox",
+      "caption": "Subscribe to our newsletter",
+      "params": {
+        "required": false
+      }
+    }
+  ]
+}

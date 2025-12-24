@@ -1,0 +1,81 @@
+{
+  "version": "1.0",
+  "formId": "personal-info-form",
+  "title": "Personal Information",
+  "fields": [
+    {
+      "id": "firstName",
+      "type": "text",
+      "caption": "First Name",
+      "params": {
+        "minLength": 1,
+        "maxLength": 50
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "lastName",
+      "type": "text",
+      "caption": "Last Name",
+      "params": {
+        "minLength": 1,
+        "maxLength": 50
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "email",
+      "type": "email",
+      "caption": "Email Address",
+      "params": {
+        "required": true
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "phone",
+      "type": "text",
+      "caption": "Phone Number",
+      "params": {
+        "minLength": 1,
+        "pattern": "^[+]?[(]?[0-9]{1,4}[)]?[-\\s\\.]?[(]?[0-9]{1,4}[)]?[-\\s\\.]?[0-9]{1,9}$"
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "dateOfBirth",
+      "type": "date",
+      "caption": "Date of Birth",
+      "params": {
+        "required": false,
+        "maxDate": "2010-12-31"
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/3"
+        }
+      }
+    }
+  ]
+}

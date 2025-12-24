@@ -1,0 +1,365 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/generic-form-format/schema/v1.0/form.schema.json",
+  "title": "Generic Form Format",
+  "description": "JSON schema for Generic Form Format (GFF) v1.0",
+  "type": "object",
+  "required": ["version", "formId", "fields"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "description": "Specification version (e.g., '1.0')"
+    },
+    "formId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the form"
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title for the form"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional form description"
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/field"
+      },
+      "description": "Array of field definitions"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/dependency"
+      },
+      "description": "Array of dependency rules"
+    },
+    "functions": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/functionDef"
+      },
+      "description": "Named functions for dynamic data"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata"
+    }
+  },
+  "definitions": {
+    "field": {
+      "type": "object",
+      "required": ["id", "type", "caption"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unique field identifier"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "text",
+            "number",
+            "checkbox",
+            "radio",
+            "select",
+            "date",
+            "file",
+            "email",
+            "url",
+            "password",
+            "range",
+            "color",
+            "nested"
+          ],
+          "description": "Field type"
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Display label"
+        },
+        "tooltip": {
+          "type": "string",
+          "description": "Help text"
+        },
+        "params": {
+          "type": "object",
+          "description": "Type-specific parameters"
+        },
+        "layout": {
+          "$ref": "#/definitions/layoutConfig",
+          "description": "Layout configuration"
+        },
+        "validation": {
+          "$ref": "#/definitions/validationConfig",
+          "description": "Additional validation"
+        },
+        "defaultValue": {
+          "description": "Default value"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disabled state"
+        },
+        "readonly": {
+          "type": "boolean",
+          "default": false,
+          "description": "Read-only state"
+        }
+      }
+    },
+    "layoutConfig": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "object",
+          "properties": {
+            "mobile": {
+              "$ref": "#/definitions/widthValue"
+            },
+            "tablet": {
+              "$ref": "#/definitions/widthValue"
+            },
+            "desktop": {
+              "$ref": "#/definitions/widthValue"
+            },
+            "wide": {
+              "$ref": "#/definitions/widthValue"
+            }
+          },
+          "description": "Width values for breakpoints"
+        },
+        "order": {
+          "type": "integer",
+          "description": "Display order"
+        },
+        "row": {
+          "type": "integer",
+          "description": "Grid row"
+        },
+        "column": {
+          "type": "integer",
+          "description": "Grid column"
+        },
+        "span": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Column span"
+        }
+      }
+    },
+    "widthValue": {
+      "type": "string",
+      "enum": [
+        "full",
+        "15/16",
+        "7/8",
+        "14/16",
+        "13/16",
+        "3/4",
+        "12/16",
+        "11/16",
+        "5/8",
+        "10/16",
+        "9/16",
+        "1/2",
+        "8/16",
+        "7/16",
+        "3/8",
+        "6/16",
+        "5/16",
+        "1/4",
+        "4/16",
+        "3/16",
+        "1/8",
+        "2/16",
+        "1/16"
+      ]
+    },
+    "validationConfig": {
+      "type": "object",
+      "properties": {
+        "custom": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["rule", "message"],
+            "properties": {
+              "rule": {
+                "type": "string",
+                "description": "Function name"
+              },
+              "message": {
+                "type": "string",
+                "description": "Error message"
+              },
+              "params": {
+                "type": "object",
+                "description": "Function parameters"
+              }
+            }
+          }
+        },
+        "crossField": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["fields", "rule", "message"],
+            "properties": {
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 2,
+                "description": "Field IDs involved"
+              },
+              "rule": {
+                "type": "string",
+                "description": "Validation rule name"
+              },
+              "message": {
+                "type": "string",
+                "description": "Error message"
+              }
+            }
+          }
+        }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "required": ["sourceFieldId", "condition", "effects"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Dependency identifier"
+        },
+        "sourceFieldId": {
+          "type": "string",
+          "description": "Field to watch"
+        },
+        "condition": {
+          "$ref": "#/definitions/condition",
+          "description": "Trigger condition"
+        },
+        "effects": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/effect"
+          },
+          "description": "Effects to apply"
+        }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "required": ["operator"],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": [
+            "equals",
+            "notEquals",
+            "contains",
+            "notContains",
+            "greaterThan",
+            "lessThan",
+            "greaterThanOrEqual",
+            "lessThanOrEqual",
+            "isEmpty",
+            "isNotEmpty",
+            "matches",
+            "in",
+            "notIn",
+            "and",
+            "or",
+            "not"
+          ],
+          "description": "Comparison operator"
+        },
+        "value": {
+          "description": "Comparison value"
+        },
+        "sourceFieldId": {
+          "type": "string",
+          "description": "Field ID for cross-field comparison"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/condition"
+          },
+          "description": "Nested conditions for and/or/not"
+        }
+      }
+    },
+    "effect": {
+      "type": "object",
+      "required": ["targetFieldId", "action"],
+      "properties": {
+        "targetFieldId": {
+          "type": "string",
+          "description": "Field to affect"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "show",
+            "hide",
+            "enable",
+            "disable",
+            "require",
+            "unrequire",
+            "updateParams",
+            "setValue",
+            "clearValue"
+          ],
+          "description": "Action to perform"
+        },
+        "params": {
+          "type": "object",
+          "description": "Parameters for updateParams action"
+        },
+        "value": {
+          "description": "Value for setValue action"
+        }
+      }
+    },
+    "functionDef": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["datasource", "validator", "transformer"],
+          "description": "Function type"
+        },
+        "description": {
+          "type": "string",
+          "description": "Function description"
+        },
+        "params": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Parameter names"
+        },
+        "returns": {
+          "type": "string",
+          "description": "Return type"
+        }
+      }
+    }
+  }
+}

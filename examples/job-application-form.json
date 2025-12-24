@@ -1,0 +1,240 @@
+{
+  "version": "1.0",
+  "formId": "job-application-form",
+  "title": "Job Application",
+  "description": "Apply for a position at our company",
+  "fields": [
+    {
+      "id": "personalInfo",
+      "type": "nested",
+      "caption": "Personal Information",
+      "params": {
+        "formId": "personal-info-form",
+        "collapsible": false
+      }
+    },
+    {
+      "id": "position",
+      "type": "select",
+      "caption": "Position Applying For",
+      "params": {
+        "required": true,
+        "options": [
+          { "value": "dev", "label": "Software Developer" },
+          { "value": "designer", "label": "UI/UX Designer" },
+          { "value": "manager", "label": "Project Manager" },
+          { "value": "other", "label": "Other" }
+        ]
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "positionOther",
+      "type": "text",
+      "caption": "Please Specify Position",
+      "params": {
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "experienceYears",
+      "type": "number",
+      "caption": "Years of Experience",
+      "params": {
+        "required": true,
+        "min": 0,
+        "max": 50,
+        "decimals": 0
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/4"
+        }
+      }
+    },
+    {
+      "id": "expectedSalary",
+      "type": "number",
+      "caption": "Expected Salary (USD)",
+      "params": {
+        "required": false,
+        "min": 0,
+        "decimals": 2
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/4"
+        }
+      }
+    },
+    {
+      "id": "startDate",
+      "type": "date",
+      "caption": "Available Start Date",
+      "params": {
+        "required": true,
+        "minDate": "2025-01-01"
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/4"
+        }
+      }
+    },
+    {
+      "id": "workType",
+      "type": "radio",
+      "caption": "Preferred Work Type",
+      "params": {
+        "required": true,
+        "options": ["Remote", "Hybrid", "On-site"]
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/4"
+        }
+      }
+    },
+    {
+      "id": "resume",
+      "type": "file",
+      "caption": "Upload Resume",
+      "tooltip": "PDF or Word document, max 5MB",
+      "params": {
+        "required": true,
+        "multiple": false,
+        "maxSize": 5242880,
+        "acceptedTypes": [".pdf", ".doc", ".docx"],
+        "acceptedMimeTypes": ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
+      }
+    },
+    {
+      "id": "coverLetter",
+      "type": "text",
+      "caption": "Cover Letter",
+      "tooltip": "Tell us why you're a great fit for this position",
+      "params": {
+        "minLength": 50,
+        "maxLength": 2000,
+        "multiline": true
+      }
+    },
+    {
+      "id": "portfolioUrl",
+      "type": "url",
+      "caption": "Portfolio URL",
+      "tooltip": "Link to your portfolio, GitHub, or LinkedIn",
+      "params": {
+        "required": false,
+        "placeholder": "https://yourportfolio.com"
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "full"
+        }
+      }
+    },
+    {
+      "id": "hasReferences",
+      "type": "checkbox",
+      "caption": "I can provide professional references",
+      "params": {
+        "required": false
+      }
+    },
+    {
+      "id": "references",
+      "type": "nested",
+      "caption": "Professional References",
+      "tooltip": "Please provide at least 2 references",
+      "params": {
+        "formId": "reference-form",
+        "multiple": true,
+        "collapsible": true
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "show-position-other",
+      "sourceFieldId": "position",
+      "condition": {
+        "operator": "equals",
+        "value": "other"
+      },
+      "effects": [
+        {
+          "targetFieldId": "positionOther",
+          "action": "show"
+        },
+        {
+          "targetFieldId": "positionOther",
+          "action": "require"
+        }
+      ]
+    },
+    {
+      "id": "hide-position-other",
+      "sourceFieldId": "position",
+      "condition": {
+        "operator": "notEquals",
+        "value": "other"
+      },
+      "effects": [
+        {
+          "targetFieldId": "positionOther",
+          "action": "hide"
+        },
+        {
+          "targetFieldId": "positionOther",
+          "action": "unrequire"
+        }
+      ]
+    },
+    {
+      "id": "show-references",
+      "sourceFieldId": "hasReferences",
+      "condition": {
+        "operator": "equals",
+        "value": true
+      },
+      "effects": [
+        {
+          "targetFieldId": "references",
+          "action": "show"
+        }
+      ]
+    },
+    {
+      "id": "hide-references",
+      "sourceFieldId": "hasReferences",
+      "condition": {
+        "operator": "equals",
+        "value": false
+      },
+      "effects": [
+        {
+          "targetFieldId": "references",
+          "action": "hide"
+        }
+      ]
+    }
+  ]
+}

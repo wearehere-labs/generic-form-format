@@ -1,0 +1,82 @@
+{
+  "version": "1.0",
+  "formId": "reference-form",
+  "title": "Professional Reference",
+  "fields": [
+    {
+      "id": "name",
+      "type": "text",
+      "caption": "Reference Name",
+      "params": {
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "relationship",
+      "type": "text",
+      "caption": "Relationship",
+      "tooltip": "e.g., Former Manager, Colleague, Professor",
+      "params": {
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "company",
+      "type": "text",
+      "caption": "Company/Organization",
+      "params": {
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "email",
+      "type": "email",
+      "caption": "Email Address",
+      "params": {
+        "required": true
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    },
+    {
+      "id": "phone",
+      "type": "text",
+      "caption": "Phone Number",
+      "params": {
+        "minLength": 0,
+        "pattern": "^[+]?[(]?[0-9]{1,4}[)]?[-\\s\\.]?[(]?[0-9]{1,4}[)]?[-\\s\\.]?[0-9]{1,9}$"
+      },
+      "layout": {
+        "width": {
+          "mobile": "full",
+          "desktop": "1/2"
+        }
+      }
+    }
+  ]
+}
